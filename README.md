@@ -1,6 +1,6 @@
 # Spring Cloud Kubernetes
 
-Demo of deploying Spring Boot application on Kubernetes using Spring Cloud Kubernetes
+Demo of deploying a Spring Boot application on Kubernetes using Spring Cloud Kubernetes
 
 ## Building The Containers
 
@@ -35,6 +35,7 @@ To create the YAML files all you need to do is run `mvn clean package`.  The YAM
 kubectl create --filename spring-cloud-k8s-demo/toys-bestseller/configmap.yml
 kubectl create --filename spring-cloud-k8s-demo/toys-bestseller/target/classes/META-INF/dekorate/kubernetes.yml
 kubectl create --filename spring-cloud-k8s-demo/fashion-bestseller/target/classes/META-INF/dekorate/kubernetes.yml
+kubectl create --filename spring-cloud-k8s-demo/books-bestseller/target/classes/META-INF/dekorate/kubernetes.yml
 kubectl create --filename spring-cloud-k8s-demo/hot-deals/target/classes/META-INF/dekorate/kubernetes.yml
 kubectl create --filename spring-cloud-k8s-demo/gateway/target/classes/META-INF/dekorate/kubernetes.yml
 ```
@@ -86,10 +87,10 @@ representing the best selling fashion items.
 This app exposes one endpoint at `/hotdeals` which accepts a `GET` request and returns JSON representing
 deals from the fashion and toys service.
 
-### Fashion Bestseller
+### Books Bestseller
 
-This app exposes one endpoint at `/fashion/bestseller` which accepts a `GET` request and returns JSON
-representing the best selling fashion items.
+This app exposes one endpoint at `/books/bestseller` which accepts a `GET` request and returns JSON
+representing the best selling books.
 
 ### Gateway
 
@@ -101,3 +102,10 @@ In addition there is another endpoint at `/startpage` which aggregates the respo
 
 When Chaos Monkey for Spring Boot is enabled on the toys service occasionally the Hystrix circuit breaker will
 be tripped when the latency is injected.
+
+## Built With
+
+* [Maven](https://maven.apache.org/) - Dependency Management
+
+## Authors
+Rakesh Venkatesh
