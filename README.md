@@ -103,6 +103,14 @@ In addition there is another endpoint at `/startpage` which aggregates the respo
 When Chaos Monkey for Spring Boot is enabled on the toys service occasionally the Hystrix circuit breaker will
 be tripped when the latency is injected.
 
+### Ingress Controller rules
+
+Once the nginx or any other ingress controller is installed\
+you can apply the ingress rules using
+```bash
+kubectl apply -f example-ingress.yaml
+```
+
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
