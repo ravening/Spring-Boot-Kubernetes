@@ -1,0 +1,80 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: customerdashboard-gateway
+  namespace: jhipster
+  labels:
+    gateway: customerdashboard-gateway
+    istio: ingressgateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - customerdashboard.jhipster.178.162.213.42.nip.io
+    - port:
+        number: 80
+        name: http2
+        protocol: HTTP2
+      hosts:
+        - customerdashboard.jhipster.178.162.213.42.nip.io
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: customerdashboard-gw-virtualservice
+  namespace: jhipster
+  labels:
+    service: customerdashboard-gw-virtualservice
+spec:
+  hosts:
+    - customerdashboard.jhipster.178.162.213.42.nip.io
+  gateways:
+    - customerdashboard-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /services/admindashboard/
+      route:
+        - destination:
+            host: admindashboard
+    - match:
+        - uri:
+            prefix: /services/virtualmachine/
+      route:
+        - destination:
+            host: virtualmachine
+    - match:
+        - uri:
+            prefix: /services/privatecloud/
+      route:
+        - destination:
+            host: privatecloud
+    - match:
+        - uri:
+            prefix: /services/cloudstack/
+      route:
+        - destination:
+            host: cloudstack
+    - match:
+        - uri:
+            prefix: /services/customeraccount/
+      route:
+        - destination:
+            host: customeraccount
+    - match:
+        - uri:
+            prefix: /services/orders/
+      route:
+        - destination:
+            host: orders
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: customerdashboard

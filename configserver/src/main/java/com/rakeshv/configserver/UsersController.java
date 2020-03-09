@@ -15,4 +15,10 @@ public class UsersController {
         log.info("Received a request from client@!!!!!!");
         return "Spring, boot, cloud, kubernetes, configmap, discoveryclient";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        log.info("testing the skaffold");
+        return "Hello";
+    }
 }

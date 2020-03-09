@@ -10,4 +10,11 @@ build:
 deploy:
   kubectl:
     manifests:
-      - deploy.yaml
+#      - deploy.yaml
+      - testservice.yaml
+      - test.yaml
+portForward:
+  - resourceType: deployment
+    resourceName: users-service
+    port: 8080
+    localPort: 9000

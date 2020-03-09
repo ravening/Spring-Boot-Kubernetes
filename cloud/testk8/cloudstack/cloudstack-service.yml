@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudstack
+  namespace: jhipster
+  labels:
+    app: cloudstack
+spec:
+  selector:
+    app: cloudstack
+  ports:
+    - name: http
+      port: 8083
