@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rakeshv</groupId>
-    <artifactId>configmaps</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>configmaps</name>
-    <description>Spring Cloud kubernetes configmap</description>
+    <artifactId>configserver</artifactId>
+    <version>0.0.1</version>
+    <name>configserver</name>
+    <description>Spring cloud kubernetes config server</description>
 
     <properties>
         <java.version>11</java.version>
@@ -56,11 +56,6 @@
             <version>1.1.1.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
-            <version>1.1.1.RELEASE</version>
-        </dependency>
-        <dependency>
             <groupId>io.dekorate</groupId>
             <artifactId>kubernetes-spring-starter</artifactId>
             <version>0.10.0</version>
@@ -73,8 +68,45 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>tag-latest</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>tag</goal>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <tag>latest</tag>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tag-version</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>tag</goal>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <tag>${project.version}</tag>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>docker.io/rakgenius/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
-        <finalName>configmap</finalName>
+        <finalName>configserver</finalName>
     </build>
 
 </project>

@@ -1,0 +1,50 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: configmaps
+  namespace: k8
+spec:
+  selector:
+    app: configmaps
+  ports:
+    - protocol: TCP
+      port: 8081
+      nodePort: 30083
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmaps
+  namespace: k8
+spec:
+  selector:
+    matchLabels:
+      app: configmaps
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: configmaps
+    spec:
+      serviceAccountName: configmaps
+#      dnsPolicy: Default
+      hostNetwork: true
+      containers:
+        - name: configmaps
+          image: rakgenius/configmaps:0.0.5
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: "KUBERNETES_NAMESPACE"
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+#          volumeMounts:
+#            - mountPath: /etc/config
+#              name: config-volume
+#      volumes:
+#        - name: config-volume
+#          configMap:
+#            name: configmaps

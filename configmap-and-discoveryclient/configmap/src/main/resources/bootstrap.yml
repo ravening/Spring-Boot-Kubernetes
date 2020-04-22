@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: configmaps
+  cloud:
+    kubernetes:
+      config:
+        enabled: true
+        sources:
+          - name: configmaps
+        namespace: k8
+      reload:
+        enabled: true
+        mode: event
+        strategy: refresh
+
+management:
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true

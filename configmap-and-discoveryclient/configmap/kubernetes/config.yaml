@@ -1,8 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-example
+  name: configmaps
+  namespace: k8
 data:
-  application.properties: |-
+  application.yml: |-
     welcome.message=Hello Youtube from app.properties
     message=Hi from app.properties

@@ -14,5 +14,5 @@ import org.springframework.context.annotation.Configuration;
 @Builder
 @NoArgsConstructor
 public class WelcomeConfiguration {
-    private String message;
+    private String message = "Hello from spring cloud kubernetes";
 }

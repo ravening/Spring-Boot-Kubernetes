@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: users-service
+  namespace: k8
 spec:
   selector:
     app: users-service
@@ -15,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: users-service
+  namespace: k8
 spec:
   selector:
     matchLabels:
@@ -25,9 +27,17 @@ spec:
       labels:
         app: users-service
     spec:
+      serviceAccountName: configmaps
+#      dnsPolicy: Default
+#      hostNetwork: true # dont user hostnetwork for server as its not calling api server
       containers:
         - name: users-service
-          image: rakgenius/users-service:2326329-dirty
-          imagePullPolicy: IfNotPresent
+          image: rakgenius/configserver:0.0.1
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: "KUBERNETES_NAMESPACE"
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"

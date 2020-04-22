@@ -4,4 +4,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: info,refresh,keepalive,health
