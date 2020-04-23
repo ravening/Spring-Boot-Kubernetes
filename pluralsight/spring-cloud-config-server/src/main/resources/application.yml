@@ -5,6 +5,8 @@ spring:
   cloud:
     config:
       server:
+        encrypt:
+          enabled: false
         git:
           uri: https://github.com/ravening/spring-cloudconfig-watolls
           search-paths:
@@ -16,5 +18,9 @@ spring:
               uri: https://github.com/ravening/spring-cloudconfig-watolls-perf
               search-paths:
                 - 'station*'
+  security:
+    user:
+      password: pluralsight
+      name: pluralsight
 #          username:
 #          password:

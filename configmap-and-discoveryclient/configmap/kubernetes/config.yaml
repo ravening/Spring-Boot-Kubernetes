@@ -5,5 +5,5 @@ metadata:
   namespace: k8
 data:
   application.yml: |-
-    welcome.message=Hello Youtube from app.properties
+    welcome.message=Wow it works from kubectl get ep
     message=Hi from app.properties
