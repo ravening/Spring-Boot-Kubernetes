@@ -15,13 +15,14 @@ public class SchedulerComponent {
     WelcomeConfiguration configuration;
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    UserClient userClient;
 
     @Scheduled(fixedRate = 5000)
     public void schedule() {
         log.info("Config message is : {}", configuration.getMessage());
 
-        String url = "http://users-service:8080/users";
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        ResponseEntity<String> responseEntity = userClient.getUser();
         log.info("Calling via discovery client.... {}", responseEntity.getBody());
     }
 }

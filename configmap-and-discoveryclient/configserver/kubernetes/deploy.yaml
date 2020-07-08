@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: users-service
+  name: configserver
   namespace: k8
 spec:
   selector:
-    app: users-service
+    app: configserver
   ports:
     - protocol: TCP
       port: 8080
@@ -15,24 +15,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: users-service
+  name: configserver
   namespace: k8
 spec:
   selector:
     matchLabels:
-      app: users-service
+      app: configserver
   replicas: 1
   template:
     metadata:
       labels:
-        app: users-service
+        app: configserver
     spec:
       serviceAccountName: configmaps
 #      dnsPolicy: Default
 #      hostNetwork: true # dont user hostnetwork for server as its not calling api server
       containers:
-        - name: users-service
-          image: rakgenius/configserver:0.0.1
+        - name: configserver
+          image: rakgenius/configserver:0.0.10
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

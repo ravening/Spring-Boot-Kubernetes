@@ -1,7 +1,7 @@
 # Spring Cloud Kubernetes Configmaps and discovery client example
 
-A sample spring cloud Java application to demonstrate the usage of 
-configmaps and service discovery functionalities provided by kubernetes 
+A sample spring cloud Java application to demonstrate the usage of
+configmaps and service discovery functionalities provided by kubernetes
 and how can they be easily used in spring cloud projects using the new\
 `Spring Cloud Kubernetes` project.
 
@@ -84,11 +84,4 @@ to include the service account and hostNetwork fields.
 kubectl get svc -n k8
 ```
 
-3. Note down the IP address of `users-service` service
-
-4. Once this is done ssh to client/configmaps pod to add a entry in `/etc/hosts`
-```
-<IP address of users-service> users-service
-```
-
-5. If this is not added then client can't communicate to server
+3. Look at the logs in the pod

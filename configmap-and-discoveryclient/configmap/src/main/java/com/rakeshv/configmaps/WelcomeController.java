@@ -15,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 public class WelcomeController {
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    UserClient userClient;
+
     @Value("${message:Welcome hello world}")
     private String message;
     @GetMapping
@@ -26,7 +29,8 @@ public class WelcomeController {
     @GetMapping("/users")
     public String getUsers() {
         String url = "http://users-service:8080/users";
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+//        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        ResponseEntity<String> responseEntity = userClient.getUser();
         log.info("Fetching users: {}", responseEntity.getBody());
 
         return responseEntity.getBody();

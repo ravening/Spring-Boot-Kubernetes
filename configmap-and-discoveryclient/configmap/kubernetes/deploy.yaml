@@ -29,10 +29,10 @@ spec:
     spec:
       serviceAccountName: configmaps
 #      dnsPolicy: Default
-      hostNetwork: true
+#      hostNetwork: true
       containers:
         - name: configmaps
-          image: rakgenius/configmaps:0.0.5
+          image: rakgenius/configmaps:0.0.11
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
