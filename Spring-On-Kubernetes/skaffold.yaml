@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: k8s-demo-app
+build:
+  local:
+    push: false
+  artifacts:
+    - image: k8s-demo-app
+      context: .
+      buildpacks:
+        builder: gcr.io/paketo-buildpacks/builder:base-platform-api-0.3
+        dependencies:
+          paths:
+            - src
+            - pom.xml
+deploy:
+  kustomize:
+    paths: ["kustomize/base"]
+profiles:
+  - name: qa
+    deploy:
+      kustomize:
+        paths: ["kustomize/qa"]
+portForward:
+  - resourceType: service
+    resourceName: k8s-demo-app
+    port: 8080
+    localPort: 9000

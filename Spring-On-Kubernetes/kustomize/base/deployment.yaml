@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: k8s-demo-app
+  name: k8s-demo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-demo-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: k8s-demo-app
+    spec:
+      containers:
+        - image: k8s-demo-app
+          name: k8s-demo-app
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /workspace/config
+          # envFrom:
+          #   - configMapRef:
+          #       name: log-level # Refer to readme file for creting configmap "log-level"
+          resources: {}
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health/liveness
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 10"]
+      volumes:
+        - name: config-volume
+          configMap:
+            name: k8s-demo-app-config
+
+status: {}
+
