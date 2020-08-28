@@ -9,6 +9,12 @@ mvn clean package -DskipTests
 ```
 mvn k8s:build
 ```
+or
+
+Build it in the classic spring boot way
+```
+./mvnw spring-boot:build-image
+```
 
 ## Creates kubernetes resources
 ```
