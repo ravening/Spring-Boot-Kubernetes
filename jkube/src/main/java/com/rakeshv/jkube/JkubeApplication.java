@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 public class JkubeApplication {
 
@@ -19,6 +21,7 @@ public class JkubeApplication {
 class DemoEndpoint {
     @GetMapping(value = "/hello", produces = "application/json")
     public Flux<HelloResponse> hello() {
+        System.out.println("Received request at " + LocalDateTime.now());
         return Flux.just(new HelloResponse("Hello from kubernetes"));
     }
 }
